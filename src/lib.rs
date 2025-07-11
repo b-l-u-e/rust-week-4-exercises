@@ -1,6 +1,4 @@
 use std::fmt;
-use std::io::Write;
-use std::str::FromStr;
 use thiserror::Error;
 
 // Custom errors for Bitcoin operations
