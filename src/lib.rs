@@ -71,12 +71,12 @@ impl fmt::Display for LegacyTransaction {
         writeln!(f, "  version: {}", self.version)?;
         writeln!(f, "  inputs: [")?;
         for input in &self.inputs {
-            writeln!(f, "    {:?}", input)?;
+            writeln!(f, "    {input:?}")?;
         }
         writeln!(f, "  ]")?;
         writeln!(f, "  outputs: [")?;
         for output in &self.outputs {
-            writeln!(f, "    {:?}", output)?;
+            writeln!(f, "    {output:?}")?;
         }
         writeln!(f, "  ]")?;
         writeln!(f, "  lock_time: {}", self.lock_time)?;
@@ -213,10 +213,7 @@ pub fn parse_cli_args(args: &[String]) -> Result<CliCommand, BitcoinError> {
             Ok(CliCommand::Send { amount, address })
         }
         "balance" => Ok(CliCommand::Balance),
-        cmd => Err(BitcoinError::ParseError(format!(
-            "Unknown command: {}",
-            cmd
-        ))),
+        cmd => Err(BitcoinError::ParseError(format!("Unknown command: {cmd}"))),
     }
 }
 
@@ -229,7 +226,7 @@ impl fmt::Display for CliCommand {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
             CliCommand::Send { amount, address } => {
-                write!(f, "Send {{ amount: {}, address: {} }}", amount, address)
+                write!(f, "Send {{ amount: {amount}, address: {address} }}")
             }
             CliCommand::Balance => write!(f, "Balance"),
         }
